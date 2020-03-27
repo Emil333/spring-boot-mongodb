@@ -1,10 +1,8 @@
 package com.emil.springproject.controller;
 
+import com.emil.springproject.service.UserService;
 import com.emil.springproject.beans.User;
-import com.emil.springproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RestController
@@ -19,19 +18,15 @@ import javax.validation.Valid;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity addUser(@Valid @RequestBody User user) {
-
-        ExampleMatcher exampleMatcher = ExampleMatcher.matching()
-                .withIgnorePaths("userId", "password", "name");
-
-        Example userRequest = Example.of(user, exampleMatcher);
-        if (userRepository.exists(userRequest)) {
+        Optional<User> userOptional = userService.findUserByEmail(user.getEmailId());
+        if (userOptional.isPresent()) {
             return ResponseEntity.status(403).body("User with the email already exists");
         } else {
-            return ResponseEntity.ok(userRepository.save(user));
+            return ResponseEntity.ok(userService.saveUser(user));
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.emil.springproject.controller;
 
-import com.emil.springproject.beans.Employee;
-import com.emil.springproject.exception.ResourceNotFoundException;
 import com.emil.springproject.repository.EmployeeRepository;
 import com.emil.springproject.service.SequenceGeneratorService;
+import com.emil.springproject.beans.Employee;
+import com.emil.springproject.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +13,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+//TODO add service based implementations
+
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/employees")
 public class EmployeeController {
 
 
@@ -25,28 +28,29 @@ public class EmployeeController {
     private SequenceGeneratorService sequenceGeneratorService;
 
 
-    @GetMapping("/employees")
+    @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
-    @GetMapping("/employees/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable(value = "id") Long employeeId)
             throws ResourceNotFoundException {
+
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(
                 () -> new ResourceNotFoundException("Employee not found for this id: " + employeeId)
         );
         return ResponseEntity.ok().body(employee);
     }
 
-    @PostMapping("/employees")
+    @PostMapping
     public Employee createEmployee(@Valid @RequestBody Employee employee) {
 
         employee.setId(sequenceGeneratorService.generateSequence(Employee.SEQUENCE_NAME));
         return employeeRepository.save(employee);
     }
 
-    @PutMapping("/employee/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable(value = "id") Long employeeId,
                                                    @Valid @RequestBody Employee employeeDetails)
             throws ResourceNotFoundException {
@@ -60,7 +64,7 @@ public class EmployeeController {
         return ResponseEntity.ok().body(updatedEmployee);
     }
 
-    @DeleteMapping("/employee/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
             throws ResourceNotFoundException{
 
