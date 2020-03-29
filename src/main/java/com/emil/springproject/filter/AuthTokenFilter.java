@@ -23,14 +23,14 @@ public class AuthTokenFilter extends GenericFilterBean {
 
 
     private AuthService authenticationService;
+
+    private UserService userService;
     private static final String authTokenHeaderName = "x-auth-token";
 
-    @Autowired
-    private UserService userService;
 
-
-    public AuthTokenFilter(AuthService authRepo) {
+    public AuthTokenFilter(AuthService authRepo, UserService userService) {
         this.authenticationService = authRepo;
+        this.userService = userService;
     }
 
 

@@ -1,6 +1,7 @@
 package com.emil.springproject.filter;
 
 import com.emil.springproject.service.AuthService;
+import com.emil.springproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -16,9 +17,13 @@ public class AuthTokenConfig extends SecurityConfigurerAdapter<DefaultSecurityFi
     @Autowired
     private AuthService authenticationService;
 
+    @Autowired
+    private UserService userService;
+
+
     @Override
     public void configure(HttpSecurity builder) throws Exception {
-        AuthTokenFilter authTokenFilter = new AuthTokenFilter(authenticationService);
+        AuthTokenFilter authTokenFilter = new AuthTokenFilter(authenticationService, userService);
         builder.addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
