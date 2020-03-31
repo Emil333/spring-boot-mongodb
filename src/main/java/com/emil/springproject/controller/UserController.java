@@ -1,7 +1,7 @@
 package com.emil.springproject.controller;
 
-import com.emil.springproject.service.UserService;
 import com.emil.springproject.beans.User;
+import com.emil.springproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

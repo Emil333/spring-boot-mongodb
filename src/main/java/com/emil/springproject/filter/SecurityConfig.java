@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,7 +22,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity
 @ComponentScan(basePackages = {"com.emil"})
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthService authenticationService;
@@ -36,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String [] methodSecured = {"/api/v1/user", "/api/v1/employees"};
+        String[] methodSecured = {"/api/v1/user", "/api/v1/employees"};
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(methodSecured).authenticated()
@@ -47,15 +46,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     @Override
-    public void configure(WebSecurity webSecurity) throws Exception
-    {
+    public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity.ignoring().antMatchers("/api/v1/auth/**");
     }
-    private AuthTokenFilter tokenAuthorizationFilter()
-    {
+
+    private AuthTokenFilter tokenAuthorizationFilter() {
         return new AuthTokenFilter(authenticationService, userService);
     }
-
 
 
     @Override

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ComponentScan(basePackages = {"com.emil"})
-public class AuthTokenConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>{
+public class AuthTokenConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired
     private AuthService authenticationService;

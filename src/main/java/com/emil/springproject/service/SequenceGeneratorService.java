@@ -18,16 +18,16 @@ public class SequenceGeneratorService {
     private MongoOperations mongoOperations;
 
 
-    public SequenceGeneratorService(MongoOperations operations){
+    public SequenceGeneratorService(MongoOperations operations) {
         this.mongoOperations = operations;
     }
 
-    public long generateSequence(String seqName){
+    public long generateSequence(String seqName) {
 
         DatabaseSequence counter = mongoOperations.findAndModify(Query.query(where("_id").is(seqName)),
                 new Update().inc("seq", 1), FindAndModifyOptions.options().returnNew(true).upsert(true),
                 DatabaseSequence.class);
 
-        return !Objects.isNull(counter)?counter.getSeq() : 1;
+        return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
 }

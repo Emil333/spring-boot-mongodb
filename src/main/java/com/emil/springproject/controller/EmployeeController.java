@@ -1,9 +1,9 @@
 package com.emil.springproject.controller;
 
-import com.emil.springproject.repository.EmployeeRepository;
-import com.emil.springproject.service.SequenceGeneratorService;
 import com.emil.springproject.beans.Employee;
 import com.emil.springproject.exception.ResourceNotFoundException;
+import com.emil.springproject.repository.EmployeeRepository;
+import com.emil.springproject.service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +66,7 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteEmployee(@PathVariable(value = "id") Long employeeId)
-            throws ResourceNotFoundException{
+            throws ResourceNotFoundException {
 
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(
                 () -> new ResourceNotFoundException("Employee not found for this id: " + employeeId));
