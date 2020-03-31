@@ -2,6 +2,8 @@ package com.emil.springproject.service;
 
 import com.emil.springproject.beans.User;
 
+import java.io.Serializable;
+import java.security.Principal;
 import java.util.Optional;
 
 public interface UserService {

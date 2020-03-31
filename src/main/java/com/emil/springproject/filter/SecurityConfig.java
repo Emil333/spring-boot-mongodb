@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.SecurityConfigurer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,27 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        String [] methodSecured = {"/v1/api/user", "/api/v1/employees"};
-//        http.csrf().disable()
-//                .authorizeRequests().antMatchers("/").permitAll()
-//                .antMatchers(methodSecured).authenticated();
-////                .and().formLogin().loginPage("/api/v1/auth/signin");
-//        SecurityConfigurer securityConfigurerAdapter = new AuthTokenConfig();
-//        http.apply(securityConfigurerAdapter);
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        String [] methodSecured = {"/api/v1/user", "/api/v1/employees"};
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers(methodSecured).authenticated()
+                .and().formLogin().loginPage("/api/v1/auth/signin").permitAll();
+        SecurityConfigurer securityConfigurerAdapter = new AuthTokenConfig();
+        http.apply(securityConfigurerAdapter);
+        http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class);
+    }
 
     @Override
     public void configure(WebSecurity webSecurity) throws Exception
     {
-        webSecurity.ignoring().antMatchers(HttpMethod.GET, "/api");
-    }
-    @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
-        http.addFilterBefore(tokenAuthorizationFilter(), BasicAuthenticationFilter.class);
-        http.authorizeRequests().antMatchers("/api/**").authenticated();
+        webSecurity.ignoring().antMatchers("/api/v1/auth/**");
     }
     private AuthTokenFilter tokenAuthorizationFilter()
     {

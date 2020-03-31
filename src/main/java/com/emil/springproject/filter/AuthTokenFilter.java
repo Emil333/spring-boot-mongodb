@@ -4,7 +4,6 @@ import com.emil.springproject.beans.Authentication;
 import com.emil.springproject.beans.User;
 import com.emil.springproject.service.AuthService;
 import com.emil.springproject.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;

@@ -54,4 +54,5 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findUserById(String id) {
         return userRepository.findById(id);
     }
+
 }
