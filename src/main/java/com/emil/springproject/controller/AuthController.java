@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -31,8 +32,9 @@ public class AuthController {
         Optional<User> userOptional = userService.validateUserDetails(email, password);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            Authentication authentication = new Authentication();
-            authentication.setUserId(user.getUserId());
+            LocalDateTime time = LocalDateTime.now();
+            Authentication authentication = new Authentication(user.getUserId(), time);
+//            authentication.setUserId(user.getUserId());
             return ResponseEntity.ok(authService.saveAuthentication(authentication));
         } else {
             throw new ResourceNotFoundException("User with the provided credentials not found");
