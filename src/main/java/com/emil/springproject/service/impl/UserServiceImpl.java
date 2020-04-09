@@ -1,7 +1,7 @@
 package com.emil.springproject.service.impl;
 
-import com.emil.springproject.repository.UserRepository;
 import com.emil.springproject.beans.User;
+import com.emil.springproject.repository.UserRepository;
 import com.emil.springproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
