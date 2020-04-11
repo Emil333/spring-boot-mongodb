@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             new AntPathRequestMatcher("/api/**")
     );
 
-    AuthenticationProvider provider;
+    private AuthenticationProvider provider;
 
     public SecurityConfiguration(final AuthenticationProvider authenticationProvider) {
         super();

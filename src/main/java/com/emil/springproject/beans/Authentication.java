@@ -16,19 +16,19 @@ public class Authentication {
     private String userId;
 
     @Indexed(expireAfterSeconds = 86400)
-    private LocalDateTime createdOn;
+    private LocalDateTime loginTime;
 
     public Authentication(String userId, LocalDateTime createdOn) {
         this.userId = userId;
-        this.createdOn = createdOn;
+        this.loginTime = createdOn;
     }
 
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
+    public LocalDateTime getLoginTime() {
+        return loginTime;
     }
 
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
+    public void setLoginTime(LocalDateTime loginTime) {
+        this.loginTime = loginTime;
     }
 
     public String getToken() {

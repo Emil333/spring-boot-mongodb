@@ -7,6 +7,7 @@ import com.emil.springproject.service.AuthService;
 import com.emil.springproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,5 +40,12 @@ public class AuthController {
         } else {
             throw new ResourceNotFoundException("User with the provided credentials not found");
         }
+    }
+
+    @GetMapping("/home")
+    public String index(final Model model){
+        model.addAttribute("Title", "Docker + Spring Boot");
+        model.addAttribute("msg", "Welcome to docker container");
+        return "index";
     }
 }
