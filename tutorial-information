@@ -1,1 +1,22 @@
-https://www.javadevjournal.com/spring/securing-a-restful-web-service-with-spring-security/
+Spring security tutorial : https://www.javadevjournal.com/spring/securing-a-restful-web-service-with-spring-security/
+
+Docker tutorial : https://mkyong.com/docker/docker-spring-boot-examples/
+
+Running Docker commands
+
+1. build docker container
+    sudo docker build -t name:tag
+    sudo docker build -t spring-project:1.0
+
+2. Run the docker container
+    sudo docker run -d -p 80:8080 -t name:tag
+    sudo docker run -d -p 80:8080 -t spring-project:1.0
+
+   Other commands to run the container
+   sudo docker run -d -p 80:8080 -t spring-project:1.0
+   sudo docker run -d -p 443:8443 -t spring-project:1.0
+   sudo docker run -d -p 80:8080 -p 443:8443 -t spring-project:1.0
+
+3. List all containers
+   sudo docker ps
+

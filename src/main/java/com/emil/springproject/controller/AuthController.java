@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/authentication/token")
+@RequestMapping("/authentication")
 public class AuthController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/signin")
+    @GetMapping("/token/signin")
     public ResponseEntity userLogin(@RequestParam("email") String email, @RequestParam("password") String password)
             throws ResourceNotFoundException {
 
